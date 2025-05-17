@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.kPrimary),
-            textTheme: GoogleFonts.robotoTextTheme(),
+            textTheme: GoogleFonts.poppinsTextTheme(),
             primaryColor: AppTheme.kPrimary,
           ),
           routerDelegate: AppRouter.router.routerDelegate,
