@@ -20,6 +20,37 @@ class _BaseView extends StatelessWidget {
             ]),
             sufffixIcon: Icons.search,
           ),
+          10.verticalSpace,
+          Row(
+            children: [
+              Expanded(
+                child: AppDropdown(
+                  hint: "Select Item",
+                  items:
+                      [1, 2, 3, 4, 5].map((e) {
+                        return DropdownMenuItem(
+                          value: e,
+                          child: Text(e.toString()),
+                        );
+                      }).toList(),
+                  onChanged: (p0) {},
+                ),
+              ),
+              5.horizontalSpace,
+              Expanded(
+                child: AppDropdown(
+                  hint: "Select Item",
+                  items:
+                      [1, 2, 3, 4, 5].map((e) {
+                        return DropdownMenuItem(
+                          value: e,
+                          child: Text(e.toString()),
+                        );
+                      }).toList(),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:crewmeister_app/configs/configs.dart';
 import 'package:crewmeister_app/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,8 +37,9 @@ class MyApp extends StatelessWidget {
           title: 'Crewmeister App',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.kPrimary),
             textTheme: GoogleFonts.robotoTextTheme(),
+            primaryColor: AppTheme.kPrimary,
           ),
           routerDelegate: AppRouter.router.routerDelegate,
           routeInformationParser: AppRouter.router.routeInformationParser,
