@@ -39,7 +39,7 @@ class AbsenteeCard extends StatelessWidget {
                       Text(
                         'Sick Leave',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.grey[800],
+                          color: AppTheme.ktextPrimary,
                         ),
                       ),
                     ],
@@ -80,8 +80,8 @@ class AbsenteeCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Color(0xffFFF2E0),
-                border: Border.all(color: Color(0xffFFE0B3)),
+                color: AppTheme.kSecondary,
+                border: Border.all(color: AppTheme.kBorderColor),
               ),
               child: Text(
                 '24 MAY, 2025 - 26 MAY, 2025',

@@ -44,7 +44,7 @@ class NoteWidget extends StatelessWidget {
                     Text(
                       title,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppTheme.textSecondary,
+                        color: AppTheme.ktextSecondary,
                       ),
                     ),
                     Text(

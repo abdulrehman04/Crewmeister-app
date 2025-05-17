@@ -10,7 +10,7 @@ class AppDropdown<T> extends StatelessWidget {
     this.validator,
     this.width,
     this.onChanged,
-    this.hintColor = AppTheme.textSecondary,
+    this.hintColor = AppTheme.ktextSecondary,
   });
   final String hint;
   final List<DropdownMenuItem<T>> items;
