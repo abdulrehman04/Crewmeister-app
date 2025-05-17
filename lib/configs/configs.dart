@@ -4,3 +4,4 @@ import 'package:flutter/material.dart';
 
 part 'ui/_breakpoints.dart';
 part 'ui/_media.dart';
+part './theme/_colors.dart';
