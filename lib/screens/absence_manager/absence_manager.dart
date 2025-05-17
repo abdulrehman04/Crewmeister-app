@@ -15,6 +15,7 @@ part './views/mobile.dart';
 part './views/tablet.dart';
 part './widgets/_base_view.dart';
 part './widgets/_note_widget.dart';
+part './widgets/_absentee_card.dart';
 
 class AbsenceManagerScreen extends StatelessWidget {
   const AbsenceManagerScreen({super.key});
