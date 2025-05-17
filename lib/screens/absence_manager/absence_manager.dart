@@ -1,4 +1,5 @@
 import 'package:crewmeister_app/configs/configs.dart';
+import 'package:crewmeister_app/configs/extensions/color_extensions.dart';
 import 'package:crewmeister_app/services/responsive.dart';
 import 'package:crewmeister_app/widgets/input/app_dropdown.dart';
 import 'package:crewmeister_app/widgets/input/app_text_field.dart';
@@ -13,6 +14,7 @@ part './views/desktop.dart';
 part './views/mobile.dart';
 part './views/tablet.dart';
 part './widgets/_base_view.dart';
+part './widgets/_note_widget.dart';
 
 class AbsenceManagerScreen extends StatelessWidget {
   const AbsenceManagerScreen({super.key});
