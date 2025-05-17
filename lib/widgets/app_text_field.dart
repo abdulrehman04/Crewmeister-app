@@ -31,19 +31,19 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-        suffixIcon:
-            controller.text.isNotEmpty
-                ? IconButton(
-                  icon: Icon(sufffixIcon ?? Icons.search),
-                  onPressed: () {
-                    controller.clear();
-                    if (onTapIcon != null) onTapIcon!();
-                  },
-                )
-                : null,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        suffixIcon: IconButton(
+          icon: Icon(sufffixIcon ?? Icons.search),
+          onPressed: () {
+            controller.clear();
+            if (onTapIcon != null) onTapIcon!();
+          },
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide.none,
+        ),
         filled: true,
-        fillColor: Colors.grey.shade100,
+        fillColor: Colors.grey.shade200,
       ),
       validator: validator,
       inputFormatters: inputformatters,

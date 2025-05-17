@@ -1,11 +1,15 @@
 import 'package:crewmeister_app/services/responsive.dart';
+import 'package:crewmeister_app/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
 
 part './_state.dart';
 part './views/desktop.dart';
 part './views/mobile.dart';
 part './views/tablet.dart';
+part './widgets/_base_view.dart';
 
 class AbsenceManagerScreen extends StatelessWidget {
   const AbsenceManagerScreen({super.key});
@@ -14,11 +18,13 @@ class AbsenceManagerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => _ScreenState(),
-      child: Scaffold(
-        body: Responsive(
-          mobile: const _Mobile(),
-          tablet: const _Tablet(),
-          desktop: const _Desktop(),
+      child: SafeArea(
+        child: Scaffold(
+          body: Responsive(
+            mobile: const _Mobile(),
+            tablet: const _Tablet(),
+            desktop: const _Desktop(),
+          ),
         ),
       ),
     );
