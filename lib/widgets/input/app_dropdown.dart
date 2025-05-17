@@ -1,7 +1,5 @@
 import 'package:crewmeister_app/configs/configs.dart';
-import 'package:crewmeister_app/configs/extensions/color_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppDropdown<T> extends StatelessWidget {
   const AppDropdown({

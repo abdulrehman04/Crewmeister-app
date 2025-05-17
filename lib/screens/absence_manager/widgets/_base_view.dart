@@ -51,6 +51,38 @@ class _BaseView extends StatelessWidget {
               ),
             ],
           ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Absentees",
+              style: GoogleFonts.archivo(
+                fontWeight: FontWeight.w800,
+                fontSize: 40,
+              ),
+            ),
+          ),
+          10.verticalSpace,
+          Expanded(
+            child: ListView(
+              children: [
+                ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  leading: CircleAvatar(radius: 30),
+                  title: Text('Jawad Sheikh'),
+                  subtitle: Text('Sick Leave'),
+                  trailing: Container(
+                    width: 70.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppTheme.kPrimary,
+                    ),
+                    child: Center(child: Text('Approved')),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
