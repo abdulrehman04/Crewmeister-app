@@ -67,6 +67,7 @@ class AbsenceManagerBloc
           fetchAbsenteesState: FetchAbsencesSuccessState(
             absences: [...prevAbsences, ...result.absences],
             hasMore: result.hasMore,
+            totalResults: result.totalResults,
           ),
         ),
       );

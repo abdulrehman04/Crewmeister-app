@@ -27,9 +27,11 @@ class FetchAbsencesLoadingState extends FetchAbsencesState {
 }
 
 class FetchAbsencesSuccessState extends FetchAbsencesState {
+  final int totalResults;
   const FetchAbsencesSuccessState({
     required super.absences,
     required super.hasMore,
+    required this.totalResults,
   });
 }
 

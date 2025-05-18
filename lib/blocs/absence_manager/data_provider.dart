@@ -113,9 +113,14 @@ class _AbsenceManagerDataProvider {
     // Pagination
     final startIndex = (page - 1) * pageSize;
     final endIndex = startIndex + pageSize;
+    final totalResults = filtered.length;
 
     if (startIndex >= filtered.length) {
-      return PaginatedAbsenceResult(absences: [], hasMore: false);
+      return PaginatedAbsenceResult(
+        absences: [],
+        hasMore: false,
+        totalResults: totalResults,
+      );
     }
 
     final hasMore = filtered.length > endIndex;
@@ -125,6 +130,10 @@ class _AbsenceManagerDataProvider {
       endIndex > filtered.length ? filtered.length : endIndex,
     );
 
-    return PaginatedAbsenceResult(absences: result, hasMore: hasMore);
+    return PaginatedAbsenceResult(
+      absences: result,
+      hasMore: hasMore,
+      totalResults: totalResults,
+    );
   }
 }

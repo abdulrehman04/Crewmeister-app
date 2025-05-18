@@ -48,12 +48,7 @@ class _BaseViewState extends State<_BaseView> {
           FiltersRow(),
           15.verticalSpace,
           AppHeading(heading: "Absentees"),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text('Showing 10/84 results'),
-          ),
-          10.verticalSpace,
-          _BuildList(scrollController: _scrollController),
+          Expanded(child: _BuildList(scrollController: _scrollController)),
         ],
       ),
     );
