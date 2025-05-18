@@ -15,7 +15,12 @@ class _SearchView extends StatelessWidget {
         FormBuilderValidators.required(),
         FormBuilderValidators.alphabetical(),
       ]),
-      sufffixIcon: Icons.search,
+      sufffixIcon:
+          screenState.searchController.text != '' ? Icons.clear : Icons.search,
+      onTapIcon: () {
+        screenState.addSearchFilter('');
+        screenState.fetchNewData(bloc);
+      },
       onChanged: (p0) {
         if (screenState.debounce?.isActive ?? false) {
           screenState.debounce!.cancel();

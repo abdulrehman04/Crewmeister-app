@@ -2,7 +2,7 @@ part of '../absence_manager.dart';
 
 class AbsenteeCard extends StatelessWidget {
   final String name, leaveType, status, startDate, endDate;
-  final String? admitterNote, memberNote;
+  final String? admitterNote, memberNote, userImg;
   const AbsenteeCard({
     super.key,
     this.admitterNote,
@@ -12,6 +12,7 @@ class AbsenteeCard extends StatelessWidget {
     required this.name,
     required this.startDate,
     required this.status,
+    this.userImg,
   });
 
   @override
@@ -38,7 +39,10 @@ class AbsenteeCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CircleAvatar(radius: 30),
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage(userImg ?? ''),
+                  ),
                   13.horizontalSpace,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

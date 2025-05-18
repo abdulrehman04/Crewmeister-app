@@ -55,6 +55,7 @@ class _BuildList extends StatelessWidget {
                       leaveType: item.type,
                       memberNote: item.memberNote,
                       admitterNote: item.admitterNote,
+                      userImg: item.memberImage,
                     );
                   },
                 ),
