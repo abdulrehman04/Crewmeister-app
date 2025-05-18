@@ -38,97 +38,22 @@ class _BaseViewState extends State<_BaseView> {
   @override
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context);
-    final bloc = Provider.of<AbsenceManagerBloc>(context);
 
     return Form(
       key: screenState.formKey,
       child: Column(
         children: [
-          AppTextField(
-            hintText: "Search User",
-            controller: screenState.searchController,
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(),
-              FormBuilderValidators.alphabetical(),
-            ]),
-            sufffixIcon: Icons.search,
-            onChanged: (p0) {
-              if (screenState.debounce?.isActive ?? false) {
-                screenState.debounce!.cancel();
-              }
-              screenState.debounce = Timer(
-                const Duration(milliseconds: 500),
-                () {
-                  screenState.addSearchFilter(p0);
-                  bloc.add(
-                    FetchAbsencesEvent(
-                      filters: screenState.filters,
-                      pageSize: 10,
-                    ),
-                  );
-                },
-              );
-            },
-          ),
+          _SearchView(),
           10.verticalSpace,
           FiltersRow(),
           15.verticalSpace,
+          AppHeading(heading: "Absentees"),
           Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-              "Absentees",
-              style: GoogleFonts.archivo(
-                fontWeight: FontWeight.w800,
-                fontSize: 40,
-              ),
-            ),
+            child: Text('Showing 10/84 results'),
           ),
           10.verticalSpace,
-          BlocBuilder<AbsenceManagerBloc, AbsenceManagerState>(
-            builder: (context, state) {
-              if (state.fetchAbsenteesState is FetchAbsencesLoadingState) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state.fetchAbsenteesState
-                  is FetchAbsencesFailureState) {
-                return Center(
-                  child: Text(state.fetchAbsenteesState.message ?? "Error"),
-                );
-              }
-              if (state.fetchAbsenteesState is FetchAbsencesSuccessState) {
-                final absences = state.fetchAbsenteesState.absences;
-                final hasMore = state.fetchAbsenteesState.hasMore;
-
-                if (state.fetchAbsenteesState.absences.isEmpty) {
-                  return const Center(child: Text("No Absentees"));
-                }
-                return Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: absences.length + (hasMore ? 1 : 0),
-                    itemBuilder: (context, index) {
-                      if (index == absences.length && hasMore) {
-                        return const Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Center(child: CircularProgressIndicator()),
-                        );
-                      }
-                      AbsenteeItem item = absences[index];
-                      return AbsenteeCard(
-                        name: item.memberName,
-                        status: item.status,
-                        startDate: DateFormat.yMMMd().format(item.startDate),
-                        endDate: DateFormat.yMMMd().format(item.endDate),
-                        leaveType: item.type,
-                        memberNote: item.memberNote,
-                        admitterNote: item.admitterNote,
-                      );
-                    },
-                  ),
-                );
-              }
-              return Container();
-            },
-          ),
+          _BuildList(scrollController: _scrollController),
         ],
       ),
     );

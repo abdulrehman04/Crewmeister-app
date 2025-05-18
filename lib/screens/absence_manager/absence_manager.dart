@@ -12,6 +12,7 @@ import 'package:crewmeister_app/utils/utils.dart';
 import 'package:crewmeister_app/widgets/input/app_dropdown.dart';
 import 'package:crewmeister_app/widgets/input/app_text_field.dart';
 import 'package:crewmeister_app/widgets/input/date_picker_button.dart';
+import 'package:crewmeister_app/widgets/ui/app_heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,6 +29,8 @@ part './widgets/_base_view.dart';
 part './widgets/_note_widget.dart';
 part './widgets/_absentee_card.dart';
 part './widgets/_filters_row.dart';
+part './widgets/_build_list.dart';
+part './widgets/_search_view.dart';
 
 class AbsenceManagerScreen extends StatelessWidget {
   const AbsenceManagerScreen({super.key});

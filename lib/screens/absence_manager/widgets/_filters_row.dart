@@ -69,8 +69,8 @@ class FiltersRow extends StatelessWidget {
                         items:
                             [1, 2, 3, 4, 5].map((e) {
                               return DropdownMenuItem(
-                                child: Text('$e'),
                                 value: e,
+                                child: Text('$e'),
                               );
                             }).toList(),
                         onChanged: (p0) {},
@@ -81,8 +81,8 @@ class FiltersRow extends StatelessWidget {
                         items:
                             [1, 2, 3, 4, 5].map((e) {
                               return DropdownMenuItem(
-                                child: Text('$e'),
                                 value: e,
+                                child: Text('$e'),
                               );
                             }).toList(),
                         onChanged: (p0) {},
