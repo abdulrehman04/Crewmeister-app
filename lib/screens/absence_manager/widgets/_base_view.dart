@@ -173,7 +173,16 @@ class _BaseViewState extends State<_BaseView> {
                           child: Center(child: CircularProgressIndicator()),
                         );
                       }
-                      return AbsenteeCard();
+                      AbsenteeItem item = absences[index];
+                      return AbsenteeCard(
+                        name: item.memberName,
+                        status: item.status,
+                        startDate: DateFormat.yMMMd().format(item.startDate),
+                        endDate: DateFormat.yMMMd().format(item.endDate),
+                        leaveType: item.type,
+                        memberNote: item.memberNote,
+                        admitterNote: item.admitterNote,
+                      );
                     },
                   ),
                 );

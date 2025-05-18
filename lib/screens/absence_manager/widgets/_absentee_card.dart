@@ -1,7 +1,18 @@
 part of '../absence_manager.dart';
 
 class AbsenteeCard extends StatelessWidget {
-  const AbsenteeCard({super.key});
+  final String name, leaveType, status, startDate, endDate;
+  final String? admitterNote, memberNote;
+  const AbsenteeCard({
+    super.key,
+    this.admitterNote,
+    required this.endDate,
+    required this.leaveType,
+    this.memberNote,
+    required this.name,
+    required this.startDate,
+    required this.status,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +43,9 @@ class AbsenteeCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(name, style: Theme.of(context).textTheme.bodyLarge),
                       Text(
-                        'Jawad Sheikh',
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      Text(
-                        'Sick Leave',
+                        leaveType,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AppTheme.ktextPrimary,
                         ),
@@ -56,7 +64,7 @@ class AbsenteeCard extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'Approved',
+                    status,
                     style: Theme.of(
                       context,
                     ).textTheme.bodySmall?.copyWith(color: AppTheme.kWhite),
@@ -65,13 +73,12 @@ class AbsenteeCard extends StatelessWidget {
               ),
             ],
           ),
-          15.verticalSpace,
-          NoteWidget(title: 'Member note', note: 'This is a long sample note'),
-          10.verticalSpace,
-          NoteWidget(
-            title: 'Admitter note',
-            note: 'This is a long sample note',
-          ),
+          if (memberNote != '') 15.verticalSpace,
+          if (memberNote != '')
+            NoteWidget(title: 'Member note', note: memberNote ?? ''),
+          if (admitterNote != '') 10.verticalSpace,
+          if (admitterNote != '')
+            NoteWidget(title: 'Admitter note', note: admitterNote ?? ''),
           15.verticalSpace,
           // DATE PILL
           Align(
@@ -84,7 +91,7 @@ class AbsenteeCard extends StatelessWidget {
                 border: Border.all(color: AppTheme.kBorderColor),
               ),
               child: Text(
-                '24 MAY, 2025 - 26 MAY, 2025',
+                '$startDate - $endDate',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppTheme.kPrimary,
                   fontWeight: FontWeight.w600,
