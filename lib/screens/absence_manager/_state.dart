@@ -5,6 +5,7 @@ class _ScreenState extends ChangeNotifier {
       Provider.of<_ScreenState>(context, listen: listen);
 
   TextEditingController searchController = TextEditingController();
+  AbsenceFilters filters = AbsenceFilters();
 
   final formKey = GlobalKey<FormState>();
 
@@ -14,5 +15,23 @@ class _ScreenState extends ChangeNotifier {
   void incrementPage() {
     page++;
     notifyListeners();
+  }
+
+  void addSearchFilter(String input) {
+    filters = filters.copyWith(query: input);
+  }
+
+  void addStartDateFilter(DateTime? date) {
+    if (date == null) return;
+    filters = filters.copyWith(startDate: date);
+  }
+
+  void addEndDateFilter(DateTime? date) {
+    if (date == null) return;
+    filters = filters.copyWith(endDate: date);
+  }
+
+  void fetchNewData(AbsenceManagerBloc bloc) {
+    bloc.add(FetchAbsencesEvent(pageSize: 10, filters: filters));
   }
 }
