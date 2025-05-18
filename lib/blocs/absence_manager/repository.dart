@@ -7,7 +7,7 @@ class _AbsenceManagerRepo {
     dataProvider.testCall();
   }
 
-  Future<List<AbsenteeItem>> fetchAbsences({
+  Future<PaginatedAbsenceResult> fetchAbsences({
     String? query,
     AbsenceType? absenceType,
     DateTime? startDate,

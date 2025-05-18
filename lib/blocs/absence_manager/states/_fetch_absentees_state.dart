@@ -5,12 +5,17 @@ class FetchAbsencesState extends Equatable {
       a.fetchAbsenteesState != b.fetchAbsenteesState;
 
   final List<AbsenteeItem> absences;
+  final bool hasMore;
   final String? message;
 
-  const FetchAbsencesState({this.absences = const [], this.message});
+  const FetchAbsencesState({
+    this.absences = const [],
+    this.message,
+    this.hasMore = false,
+  });
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [absences, message, hasMore];
 }
 
 class FetchAbsencesDefaultState extends FetchAbsencesState {
@@ -18,11 +23,14 @@ class FetchAbsencesDefaultState extends FetchAbsencesState {
 }
 
 class FetchAbsencesLoadingState extends FetchAbsencesState {
-  const FetchAbsencesLoadingState();
+  const FetchAbsencesLoadingState({super.absences, super.hasMore});
 }
 
 class FetchAbsencesSuccessState extends FetchAbsencesState {
-  const FetchAbsencesSuccessState({required super.absences});
+  const FetchAbsencesSuccessState({
+    required super.absences,
+    required super.hasMore,
+  });
 }
 
 class FetchAbsencesFailureState extends FetchAbsencesState {

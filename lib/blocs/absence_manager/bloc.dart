@@ -5,6 +5,7 @@ import 'package:crewmeister_app/blocs/absence_manager/event.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/absence_model.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/absentee_item.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/member_model.dart';
+import 'package:crewmeister_app/blocs/absence_manager/models/paginated_absence_result.dart';
 import 'package:crewmeister_app/blocs/absence_manager/state.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ class AbsenceManagerBloc
   }
 
   final _repo = _AbsenceManagerRepo();
+  int _currentPage = 1;
 
   FutureOr<void> _onTestCall(
     AbsenceManagerTestEvent event,
@@ -35,10 +37,15 @@ class AbsenceManagerBloc
     FetchAbsencesEvent event,
     Emitter<AbsenceManagerState> emit,
   ) async {
-    emit(state.copyWith(fetchAbsenteesState: FetchAbsencesLoadingState()));
+    final prevAbsences = state.fetchAbsenteesState.absences;
+    emit(
+      state.copyWith(
+        fetchAbsenteesState: FetchAbsencesLoadingState(absences: prevAbsences),
+      ),
+    );
     try {
-      List<AbsenteeItem> absences = await _repo.fetchAbsences(
-        page: event.page,
+      PaginatedAbsenceResult result = await _repo.fetchAbsences(
+        page: _currentPage,
         pageSize: event.pageSize,
         query: event.query,
         startDate: event.startDate,
@@ -46,9 +53,13 @@ class AbsenceManagerBloc
         status: event.status,
         absenceType: event.absenceType,
       );
+      _currentPage++;
       emit(
         state.copyWith(
-          fetchAbsenteesState: FetchAbsencesSuccessState(absences: absences),
+          fetchAbsenteesState: FetchAbsencesSuccessState(
+            absences: [...prevAbsences, ...result.absences],
+            hasMore: result.hasMore,
+          ),
         ),
       );
     } catch (e) {

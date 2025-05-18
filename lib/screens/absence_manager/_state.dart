@@ -7,4 +7,11 @@ class _ScreenState extends ChangeNotifier {
   TextEditingController searchController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+
+  int page = 1;
+
+  void incrementPage() {
+    page++;
+    notifyListeners();
+  }
 }

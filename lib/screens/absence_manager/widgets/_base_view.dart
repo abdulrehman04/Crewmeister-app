@@ -9,11 +9,27 @@ class _BaseView extends StatefulWidget {
 }
 
 class _BaseViewState extends State<_BaseView> {
+  late final ScrollController _scrollController;
+
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController()..addListener(_onScroll);
     final bloc = Provider.of<AbsenceManagerBloc>(context, listen: false);
-    bloc.add(FetchAbsencesEvent(page: 1, pageSize: 10));
+    bloc.add(FetchAbsencesEvent(pageSize: 10));
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      context.read<AbsenceManagerBloc>().add(FetchAbsencesEvent(pageSize: 10));
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -86,13 +102,23 @@ class _BaseViewState extends State<_BaseView> {
                 );
               }
               if (state.fetchAbsenteesState is FetchAbsencesSuccessState) {
+                final absences = state.fetchAbsenteesState.absences;
+                final hasMore = state.fetchAbsenteesState.hasMore;
+
                 if (state.fetchAbsenteesState.absences.isEmpty) {
                   return const Center(child: Text("No Absentees"));
                 }
                 return Expanded(
                   child: ListView.builder(
-                    itemCount: state.fetchAbsenteesState.absences.length,
+                    controller: _scrollController,
+                    itemCount: absences.length + (hasMore ? 1 : 0),
                     itemBuilder: (context, index) {
+                      if (index == absences.length && hasMore) {
+                        return const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      }
                       return AbsenteeCard();
                     },
                   ),

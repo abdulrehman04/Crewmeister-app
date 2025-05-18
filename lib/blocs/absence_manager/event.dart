@@ -16,7 +16,6 @@ class FetchAbsencesEvent extends AbsenceManagerEvents {
   final DateTime? startDate;
   final DateTime? endDate;
   final String? status;
-  final int page;
   final int pageSize;
 
   const FetchAbsencesEvent({
@@ -25,7 +24,6 @@ class FetchAbsencesEvent extends AbsenceManagerEvents {
     this.startDate,
     this.endDate,
     this.status,
-    required this.page,
     required this.pageSize,
   });
 }

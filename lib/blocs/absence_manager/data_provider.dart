@@ -37,7 +37,7 @@ class _AbsenceManagerDataProvider {
     print("this is test call");
   }
 
-  Future<List<AbsenteeItem>> fetchAbsences({
+  Future<PaginatedAbsenceResult> fetchAbsences({
     String? query,
     AbsenceType? absenceType,
     DateTime? startDate,
@@ -51,8 +51,6 @@ class _AbsenceManagerDataProvider {
     }
 
     List<AbsenteeItem> filtered = absenceItems;
-    print(filtered.length);
-
     // Name filter
     if (query != null && query.trim().isNotEmpty) {
       filtered =
@@ -116,16 +114,17 @@ class _AbsenceManagerDataProvider {
     final startIndex = (page - 1) * pageSize;
     final endIndex = startIndex + pageSize;
 
-    print(startIndex);
-    print(endIndex);
+    if (startIndex >= filtered.length) {
+      return PaginatedAbsenceResult(absences: [], hasMore: false);
+    }
 
-    if (startIndex >= filtered.length) return [];
+    final hasMore = filtered.length > endIndex;
 
-    print(filtered);
-
-    return filtered.sublist(
+    final result = filtered.sublist(
       startIndex,
       endIndex > filtered.length ? filtered.length : endIndex,
     );
+
+    return PaginatedAbsenceResult(absences: result, hasMore: hasMore);
   }
 }
