@@ -9,7 +9,7 @@ class _AbsenceManagerRepo {
 
   Future<PaginatedAbsenceResult> fetchAbsences({
     String? query,
-    AbsenceType? absenceType,
+    String? absenceType,
     DateTime? startDate,
     DateTime? endDate,
     String? status,

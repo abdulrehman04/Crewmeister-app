@@ -39,7 +39,7 @@ class _AbsenceManagerDataProvider {
 
   Future<PaginatedAbsenceResult> fetchAbsences({
     String? query,
-    AbsenceType? absenceType,
+    String? absenceType,
     DateTime? startDate,
     DateTime? endDate,
     String? status,
@@ -66,7 +66,7 @@ class _AbsenceManagerDataProvider {
     if (absenceType != null) {
       filtered =
           filtered.where((item) {
-            return item.type == absenceType.label;
+            return item.type == absenceType;
           }).toList();
     }
 

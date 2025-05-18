@@ -16,13 +16,15 @@ class _BaseViewState extends State<_BaseView> {
     super.initState();
     _scrollController = ScrollController()..addListener(_onScroll);
     final bloc = Provider.of<AbsenceManagerBloc>(context, listen: false);
-    bloc.add(FetchAbsencesEvent(pageSize: 10));
+    bloc.add(FetchAbsencesEvent(pageSize: 10, filters: AbsenceFilters()));
   }
 
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      context.read<AbsenceManagerBloc>().add(FetchAbsencesEvent(pageSize: 10));
+      context.read<AbsenceManagerBloc>().add(
+        FetchAbsencesEvent(pageSize: 10, filters: AbsenceFilters()),
+      );
     }
   }
 
@@ -35,6 +37,7 @@ class _BaseViewState extends State<_BaseView> {
   @override
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context);
+    final bloc = Provider.of<AbsenceManagerBloc>(context);
 
     return Form(
       key: screenState.formKey,
@@ -48,6 +51,24 @@ class _BaseViewState extends State<_BaseView> {
               FormBuilderValidators.alphabetical(),
             ]),
             sufffixIcon: Icons.search,
+            onChanged: (p0) {
+              if (screenState.debounce?.isActive ?? false) {
+                screenState.debounce!.cancel();
+              }
+
+              screenState.debounce = Timer(
+                const Duration(milliseconds: 500),
+                () {
+                  print('called');
+                  bloc.add(
+                    FetchAbsencesEvent(
+                      filters: AbsenceFilters(query: p0),
+                      pageSize: 10,
+                    ),
+                  );
+                },
+              );
+            },
           ),
           10.verticalSpace,
           Row(

@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:crewmeister_app/models/absence_filters.dart';
 import 'package:equatable/equatable.dart';
-
-import 'package:crewmeister_app/blocs/absence_manager/enums/absence_type.dart';
 
 class AbsenceManagerEvents extends Equatable {
   @override
@@ -11,19 +9,22 @@ class AbsenceManagerEvents extends Equatable {
 }
 
 class FetchAbsencesEvent extends AbsenceManagerEvents {
-  final String? query;
-  final AbsenceType? absenceType;
-  final DateTime? startDate;
-  final DateTime? endDate;
-  final String? status;
+  // final String? query;
+  // final String? absenceType;
+  // final DateTime? startDate;
+  // final DateTime? endDate;
+  // final String? status;
   final int pageSize;
 
+  final AbsenceFilters filters;
+
   const FetchAbsencesEvent({
-    this.query,
-    this.absenceType,
-    this.startDate,
-    this.endDate,
-    this.status,
+    required this.filters,
+    // this.query,
+    // this.absenceType,
+    // this.startDate,
+    // this.endDate,
+    // this.status,
     required this.pageSize,
   });
 }

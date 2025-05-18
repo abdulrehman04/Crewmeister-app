@@ -9,6 +9,7 @@ class _ScreenState extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
 
   int page = 1;
+  Timer? debounce;
 
   void incrementPage() {
     page++;

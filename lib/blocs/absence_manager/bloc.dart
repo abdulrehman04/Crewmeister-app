@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:crewmeister_app/blocs/absence_manager/enums/absence_type.dart';
 import 'package:crewmeister_app/blocs/absence_manager/event.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/absence_model.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/absentee_item.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/member_model.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/paginated_absence_result.dart';
 import 'package:crewmeister_app/blocs/absence_manager/state.dart';
+import 'package:crewmeister_app/models/absence_filters.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,6 +25,7 @@ class AbsenceManagerBloc
 
   final _repo = _AbsenceManagerRepo();
   int _currentPage = 1;
+  AbsenceFilters _currentFilters = AbsenceFilters();
 
   FutureOr<void> _onTestCall(
     AbsenceManagerTestEvent event,
@@ -37,21 +38,28 @@ class AbsenceManagerBloc
     FetchAbsencesEvent event,
     Emitter<AbsenceManagerState> emit,
   ) async {
-    final prevAbsences = state.fetchAbsenteesState.absences;
+    List<AbsenteeItem> prevAbsences = state.fetchAbsenteesState.absences;
     emit(
       state.copyWith(
         fetchAbsenteesState: FetchAbsencesLoadingState(absences: prevAbsences),
       ),
     );
     try {
+      final isFilterChanged = event.filters != _currentFilters;
+
+      if (isFilterChanged) {
+        _currentPage = 1;
+        _currentFilters = event.filters;
+        prevAbsences = [];
+      }
       PaginatedAbsenceResult result = await _repo.fetchAbsences(
         page: _currentPage,
         pageSize: event.pageSize,
-        query: event.query,
-        startDate: event.startDate,
-        endDate: event.endDate,
-        status: event.status,
-        absenceType: event.absenceType,
+        query: event.filters.query,
+        startDate: event.filters.startDate,
+        endDate: event.filters.endDate,
+        status: event.filters.status,
+        absenceType: event.filters.absenceType,
       );
       _currentPage++;
       emit(
