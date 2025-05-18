@@ -23,12 +23,11 @@ class AppDropdown<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 70,
       child: DropdownButtonHideUnderline(
         child: DropdownButtonFormField(
           icon: Icon(Icons.expand_circle_down_outlined),
           isExpanded: true,
-          hint: Text('Select item  '),
+          hint: Text(hint),
           decoration: InputDecoration(
             filled: true,
             focusedBorder: OutlineInputBorder(
