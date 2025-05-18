@@ -10,7 +10,7 @@ class AbsenceManagerEvents extends Equatable {
   const AbsenceManagerEvents();
 }
 
-class FetchAbsenteesEvent extends AbsenceManagerEvents {
+class FetchAbsencesEvent extends AbsenceManagerEvents {
   final String? query;
   final AbsenceType? absenceType;
   final DateTime? startDate;
@@ -19,7 +19,7 @@ class FetchAbsenteesEvent extends AbsenceManagerEvents {
   final int page;
   final int pageSize;
 
-  const FetchAbsenteesEvent({
+  const FetchAbsencesEvent({
     this.query,
     this.absenceType,
     this.startDate,
