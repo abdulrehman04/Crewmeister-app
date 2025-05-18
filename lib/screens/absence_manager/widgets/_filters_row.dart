@@ -48,47 +48,9 @@ class FiltersRow extends StatelessWidget {
             showModalBottomSheet(
               context: context,
               builder: (context) {
-                return Container(
-                  padding: EdgeInsets.all(15),
-                  child: Column(
-                    children: [
-                      10.verticalSpace,
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Filters",
-                          style: GoogleFonts.archivo(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 35,
-                          ),
-                        ),
-                      ),
-                      15.verticalSpace,
-                      AppDropdown(
-                        hint: 'Select leave type',
-                        items:
-                            [1, 2, 3, 4, 5].map((e) {
-                              return DropdownMenuItem(
-                                value: e,
-                                child: Text('$e'),
-                              );
-                            }).toList(),
-                        onChanged: (p0) {},
-                      ),
-                      10.verticalSpace,
-                      AppDropdown(
-                        hint: 'Select status',
-                        items:
-                            [1, 2, 3, 4, 5].map((e) {
-                              return DropdownMenuItem(
-                                value: e,
-                                child: Text('$e'),
-                              );
-                            }).toList(),
-                        onChanged: (p0) {},
-                      ),
-                    ],
-                  ),
+                return ChangeNotifierProvider.value(
+                  value: screenState,
+                  child: const FiltersModalSheet(),
                 );
               },
             );

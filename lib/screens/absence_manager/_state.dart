@@ -17,6 +17,13 @@ class _ScreenState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void resetFilters(AbsenceManagerBloc bloc) {
+    filters = AbsenceFilters();
+    searchController.text = '';
+
+    fetchNewData(bloc);
+  }
+
   void addSearchFilter(String input) {
     filters = filters.copyWith(query: input);
   }
