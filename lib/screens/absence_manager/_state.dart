@@ -38,6 +38,14 @@ class _ScreenState extends ChangeNotifier {
     filters = filters.copyWith(endDate: date);
   }
 
+  void setLeaveTypeFilter(String leaveType) {
+    filters = filters.copyWith(absenceType: leaveType);
+  }
+
+  void setStatusFilter(String status) {
+    filters = filters.copyWith(status: status);
+  }
+
   void fetchNewData(AbsenceManagerBloc bloc) {
     bloc.add(FetchAbsencesEvent(pageSize: 10, filters: filters));
   }

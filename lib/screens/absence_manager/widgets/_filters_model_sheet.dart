@@ -42,21 +42,40 @@ class FiltersModalSheet extends StatelessWidget {
           15.verticalSpace,
           AppDropdown(
             hint: 'Select leave type',
+            value: screenState.filters.absenceType,
             items:
-                [1, 2, 3, 4, 5].map((e) {
-                  return DropdownMenuItem(value: e, child: Text('$e'));
+                AbsenceType.values.map((e) {
+                  return DropdownMenuItem(value: e.label, child: Text(e.label));
                 }).toList(),
-            onChanged: (p0) {},
+            onChanged: (p0) {
+              screenState.setLeaveTypeFilter(p0!);
+            },
           ),
           10.verticalSpace,
           AppDropdown(
             hint: 'Select status',
+            value: screenState.filters.status,
             items:
-                [1, 2, 3, 4, 5].map((e) {
-                  return DropdownMenuItem(value: e, child: Text('$e'));
+                ['Confirmed', 'Rejected', 'Requested'].map((e) {
+                  return DropdownMenuItem(value: e, child: Text(e));
                 }).toList(),
-            onChanged: (p0) {},
+            onChanged: (p0) {
+              screenState.setStatusFilter(p0!);
+            },
           ),
+          Spacer(),
+          AppButton(
+            label: 'Apply Filters',
+            onPressed: () {
+              screenState.fetchNewData(bloc);
+              context.pop();
+            },
+            textStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.w500,
+              fontSize: 17.sp,
+            ),
+          ),
+          10.verticalSpace,
         ],
       ),
     );

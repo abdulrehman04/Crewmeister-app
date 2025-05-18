@@ -11,6 +11,7 @@ class AppDropdown<T> extends StatelessWidget {
     this.width,
     this.onChanged,
     this.hintColor = AppTheme.ktextSecondary,
+    this.value,
   });
   final String hint;
   final List<DropdownMenuItem<T>> items;
@@ -19,12 +20,14 @@ class AppDropdown<T> extends StatelessWidget {
   final String? Function(T?)? validator;
   final Function(T?)? onChanged;
   final Color hintColor;
+  final T? value;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: DropdownButtonHideUnderline(
         child: DropdownButtonFormField(
+          value: value,
           icon: Icon(Icons.expand_circle_down_outlined),
           isExpanded: true,
           hint: Text(hint),
