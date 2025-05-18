@@ -7,6 +7,7 @@ class _BaseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context);
+    final bloc = Provider.of<AbsenceManagerBloc>(context);
     return Form(
       key: screenState.formKey,
       child: Column(
@@ -66,7 +67,12 @@ class _BaseView extends StatelessWidget {
             child: ListView(
               children:
                   [1, 2, 3, 4, 5, 6, 7, 5, 6, 7].map((e) {
-                    return AbsenteeCard();
+                    return InkWell(
+                      onTap: () {
+                        bloc.add(AbsenceManagerTestEvent());
+                      },
+                      child: AbsenteeCard(),
+                    );
                   }).toList(),
             ),
           ),

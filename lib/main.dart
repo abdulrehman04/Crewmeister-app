@@ -1,6 +1,8 @@
+import 'package:crewmeister_app/blocs/absence_manager/bloc.dart';
 import 'package:crewmeister_app/configs/configs.dart';
 import 'package:crewmeister_app/router/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,39 +15,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return MultiBlocProvider(
-    //   providers: [
-
-    //   ],
-    //   child: MaterialApp.router(
-    //     title: 'Crewmeister App',
-    //     debugShowCheckedModeBanner: false,
-    //     theme: ThemeData(
-    //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-    //     ),
-    //     routerDelegate: AppRouter.router.routerDelegate,
-    //     routeInformationParser: AppRouter.router.routeInformationParser,
-    //     routeInformationProvider: AppRouter.router.routeInformationProvider,
-    //   ),
-    // );
-
-    return ScreenUtilInit(
-      designSize: const Size(392.7, 781),
-      minTextAdapt: true,
-      builder: (context, child) {
-        return MaterialApp.router(
-          title: 'Crewmeister App',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.kPrimary),
-            textTheme: GoogleFonts.poppinsTextTheme(),
-            primaryColor: AppTheme.kPrimary,
-          ),
-          routerDelegate: AppRouter.router.routerDelegate,
-          routeInformationParser: AppRouter.router.routeInformationParser,
-          routeInformationProvider: AppRouter.router.routeInformationProvider,
-        );
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AbsenceManagerBloc>(
+          create: (context) => AbsenceManagerBloc(),
+        ),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(392.7, 781),
+        minTextAdapt: true,
+        builder: (context, child) {
+          return MaterialApp.router(
+            title: 'Crewmeister App',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.kPrimary),
+              textTheme: GoogleFonts.poppinsTextTheme(),
+              primaryColor: AppTheme.kPrimary,
+            ),
+            routerDelegate: AppRouter.router.routerDelegate,
+            routeInformationParser: AppRouter.router.routeInformationParser,
+            routeInformationProvider: AppRouter.router.routeInformationProvider,
+          );
+        },
+      ),
     );
   }
 }
