@@ -1,7 +1,7 @@
 part of '../absence_manager.dart';
 
-class FiltersRow extends StatelessWidget {
-  const FiltersRow({super.key});
+class _FiltersRow extends StatelessWidget {
+  const _FiltersRow();
 
   @override
   Widget build(BuildContext context) {

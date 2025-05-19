@@ -45,7 +45,7 @@ class _BaseViewState extends State<_BaseView> {
         children: [
           _SearchView(),
           10.verticalSpace,
-          FiltersRow(),
+          _FiltersRow(),
           15.verticalSpace,
           AppHeading(heading: "Absentees"),
           Expanded(child: _BuildList(scrollController: _scrollController)),
