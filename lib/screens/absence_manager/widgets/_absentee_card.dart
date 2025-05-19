@@ -17,6 +17,8 @@ class AbsenteeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _ScreenState screenState = _ScreenState.s(context);
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -59,19 +61,18 @@ class AbsenteeCard extends StatelessWidget {
                 ],
               ),
               Container(
-                width: 85.w,
-                height: 40.h,
+                width: 90.w,
+                height: 35.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: AppTheme.kPrimary,
-                  border: Border.all(width: 2, color: AppTheme.kPrimary),
+                  color: screenState.getStatusColor(status),
                 ),
                 child: Center(
                   child: Text(
                     status,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodySmall?.copyWith(color: AppTheme.kWhite),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: screenState.getStatusTextColor(status),
+                    ),
                   ),
                 ),
               ),

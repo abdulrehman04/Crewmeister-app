@@ -50,6 +50,28 @@ class _ScreenState extends ChangeNotifier {
     bloc.add(FetchAbsencesEvent(pageSize: 10, filters: filters));
   }
 
+  Color getStatusColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'confirmed':
+        return Color(0xffD1FADF);
+      case 'rejected':
+        return Color(0xffFEE4E2);
+      default:
+        return AppTheme.kSecondary;
+    }
+  }
+
+  Color getStatusTextColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'confirmed':
+        return Color(0xff027A48);
+      case 'rejected':
+        return Color(0xffB42318);
+      default:
+        return AppTheme.kPrimary;
+    }
+  }
+
   exportIcal(List<AbsenteeItem> absentees) async {
     CalendarService cal = CalendarService.instance;
     String calenderOutput = cal.generateICalContentForAbsences(
