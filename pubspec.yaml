@@ -53,6 +53,10 @@ dependencies:
   # UI
   google_fonts: ^6.2.1
 
+  # files
+  path_provider: ^2.1.5
+  open_file: ^3.5.10
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -6,6 +6,8 @@ class _BuildList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _ScreenState screenState = _ScreenState.s(context);
+
     return BlocBuilder<AbsenceManagerBloc, AbsenceManagerState>(
       builder: (context, state) {
         if (state.fetchAbsenteesState is FetchAbsencesLoadingState) {
@@ -27,14 +29,26 @@ class _BuildList extends StatelessWidget {
           }
           return Column(
             children: [
-              SizedBox(
-                height: 30,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('Showing ${absences.length}/$total results'),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Showing ${absences.length}/$total results'),
+                  InkWell(
+                    onTap: () {
+                      screenState.exportIcal(
+                        state.fetchAbsenteesState.absences,
+                      );
+                    },
+                    child: Text(
+                      'Export results',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              10.verticalSpace,
+              15.verticalSpace,
               Expanded(
                 child: ListView.builder(
                   controller: scrollController,

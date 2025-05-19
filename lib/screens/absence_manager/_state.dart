@@ -49,4 +49,14 @@ class _ScreenState extends ChangeNotifier {
   void fetchNewData(AbsenceManagerBloc bloc) {
     bloc.add(FetchAbsencesEvent(pageSize: 10, filters: filters));
   }
+
+  exportIcal(List<AbsenteeItem> absentees) async {
+    CalendarService cal = CalendarService.instance;
+    String calenderOutput = cal.generateICalContentForAbsences(
+      absences: absentees,
+    );
+
+    File file = await cal.saveICalToFile(calenderOutput);
+    OpenFile.open(file.path);
+  }
 }
