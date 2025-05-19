@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -9,11 +10,11 @@ class ApiService {
 
   static late String baseUrl;
 
-  getBaseUrl() {
-    if (Platform.isAndroid) {
-      return '10.0.2.2:8080';
+  String getBaseUrl() {
+    if (kIsWeb) {
+      return 'localhost:8080';
     }
-    return 'localhost:8080';
+    return Platform.isAndroid ? '10.0.2.2:8080' : 'localhost:8080';
   }
 
   Future<String> get(
