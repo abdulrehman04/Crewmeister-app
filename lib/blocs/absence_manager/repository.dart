@@ -1,8 +1,9 @@
 part of './bloc.dart';
 
-class _AbsenceManagerRepo {
+class _AbsenceManagerRepo implements IAbsenceManagerRepo {
   final dataProvider = _AbsenceManagerDataProvider.instance;
 
+  @override
   Future<PaginatedAbsenceResult> fetchAbsences({
     String? query,
     String? absenceType,
@@ -27,6 +28,7 @@ class _AbsenceManagerRepo {
     }
   }
 
+  @override
   Future<List<AbsenteeItem>> exportAbsences({
     String? query,
     String? absenceType,

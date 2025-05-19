@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AbsenceManagerBloc>(
-          create: (context) => AbsenceManagerBloc(),
+          create: (context) => AbsenceManagerBloc.withDefaultRepo(),
         ),
       ],
       child: ScreenUtilInit(
