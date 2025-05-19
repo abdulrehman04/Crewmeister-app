@@ -24,10 +24,19 @@ class _BaseViewState extends State<_BaseView> {
         _scrollController.position.maxScrollExtent - 200) {
       final screenState = _ScreenState.s(context);
       final bloc = Provider.of<AbsenceManagerBloc>(context, listen: false);
+
       if (bloc.state.fetchAbsenteesState.hasMore) {
-        context.read<AbsenceManagerBloc>().add(
-          FetchAbsencesEvent(pageSize: 10, filters: screenState.filters),
-        );
+        if (screenState.debounce?.isActive ?? false) {
+          screenState.debounce?.cancel();
+        }
+
+        screenState.debounce = Timer(const Duration(milliseconds: 300), () {
+          if (mounted) {
+            bloc.add(
+              FetchAbsencesEvent(pageSize: 10, filters: screenState.filters),
+            );
+          }
+        });
       }
     }
   }
