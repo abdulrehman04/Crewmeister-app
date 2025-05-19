@@ -66,6 +66,10 @@ class AbsenteeCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: screenState.getStatusColor(status),
+                  border: Border.all(
+                    width: 0.2,
+                    color: screenState.getStatusTextColor(status),
+                  ),
                 ),
                 child: Center(
                   child: Text(
