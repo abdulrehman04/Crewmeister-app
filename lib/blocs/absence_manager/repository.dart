@@ -24,12 +24,12 @@ class _AbsenceManagerRepo implements IAbsenceManagerRepo {
         pageSize: pageSize,
       );
 
-      print(result);
-
       var out = PaginatedAbsenceResult.fromMap(result);
       return out;
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
       rethrow;
     }
   }
@@ -43,12 +43,15 @@ class _AbsenceManagerRepo implements IAbsenceManagerRepo {
     String? status,
   }) async {
     try {
-      return await dataProvider.exportAbsences(
+      Map<String, dynamic> result = await dataProvider.exportAbsences(
         query: query,
         absenceType: absenceType,
         startDate: startDate,
         endDate: endDate,
         status: status,
+      );
+      return List<AbsenteeItem>.from(
+        (result['payload']).map<AbsenteeItem>((x) => AbsenteeItem.fromMap(x)),
       );
     } catch (e) {
       rethrow;

@@ -1,40 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:intl/intl.dart';
 
-import '../models/absence_model.dart';
-import '../models/absentee_item.dart';
-import '../models/member_model.dart';
-
-List<AbsenteeItem> absenceItems = [];
-
-// Called once to read and parse
-Future<void> ensureDataLoaded() async {
-  var absences = <Absence>[];
-  var members = <Member>[];
-
-  if (absenceItems.isEmpty) {
-    final aStr = jsonDecode(await File('data/absences.json').readAsString());
-    final mStr = jsonDecode(await File('data/members.json').readAsString());
-
-    absences = (aStr['payload'] as List)
-        .map((item) => Absence.fromJson(item as Map<String, dynamic>))
-        .toList();
-
-    members = (mStr['payload'] as List)
-        .map((item) => Member.fromJson(item as Map<String, dynamic>))
-        .toList();
-
-    for (final absence in absences) {
-      final member = members.firstWhere((m) => m.userId == absence.userId);
-
-      absenceItems.add(
-        AbsenteeItem.fromAbsenceAndMember(absence: absence, member: member),
-      );
-    }
-  }
-}
+import 'absences.dart';
 
 Future<Response> onRequest(RequestContext context) async {
   await ensureDataLoaded();
@@ -53,8 +20,6 @@ Future<Response> onRequest(RequestContext context) async {
   if (endDateStr != null && endDateStr.isNotEmpty) {
     endDate = DateFormat().parse(endDateStr);
   }
-  final page = int.tryParse(query['page'] ?? '1') ?? 1;
-  final pageSize = int.tryParse(query['pageSize'] ?? '10') ?? 10;
 
   var filtered = absenceItems;
   // Name filter
@@ -111,39 +76,9 @@ Future<Response> onRequest(RequestContext context) async {
     filtered = filtered.where((item) => item.status == status).toList();
   }
 
-  // Pagination
-  final startIndex = (page - 1) * pageSize;
-  final endIndex = startIndex + pageSize;
-  final totalResults = filtered.length;
-
-  if (startIndex >= filtered.length) {
-    return Response.json(
-      body: {
-        'payload': [],
-        'totalResults': totalResults,
-        'hasMore': false,
-      },
-    );
-  }
-
-  final hasMore = filtered.length > endIndex;
-
-  final result = filtered.sublist(
-    startIndex,
-    endIndex > filtered.length ? filtered.length : endIndex,
-  );
-
   return Response.json(
     body: {
-      'payload': result.map((e) => e.toMap()).toList(),
-      'totalResults': totalResults,
-      'hasMore': hasMore,
+      'payload': filtered.map((e) => e.toMap()).toList(),
     },
   );
-}
-
-String getStatus(Map absence) {
-  if (absence['rejectedAt'] != null) return 'Rejected';
-  if (absence['confirmedAt'] != null) return 'Confirmed';
-  return 'Requested';
 }
