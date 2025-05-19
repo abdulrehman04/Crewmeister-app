@@ -7,8 +7,14 @@ class _BuildList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _ScreenState screenState = _ScreenState.s(context);
+    final bloc = Provider.of<AbsenceManagerBloc>(context);
 
-    return BlocBuilder<AbsenceManagerBloc, AbsenceManagerState>(
+    return BlocConsumer<AbsenceManagerBloc, AbsenceManagerState>(
+      listener: (context, state) {
+        if (state.exportAbsencesState is ExportAbsencesSuccessState) {
+          screenState.exportIcal(state.exportAbsencesState.absences);
+        }
+      },
       builder: (context, state) {
         if (state.fetchAbsenteesState is FetchAbsencesLoadingState) {
           return const Center(child: CircularProgressIndicator());
@@ -35,8 +41,8 @@ class _BuildList extends StatelessWidget {
                   Text('Showing ${absences.length}/$total results'),
                   InkWell(
                     onTap: () {
-                      screenState.exportIcal(
-                        state.fetchAbsenteesState.absences,
+                      bloc.add(
+                        ExportAbsencesEvent(filters: screenState.filters),
                       );
                     },
                     child: Text(

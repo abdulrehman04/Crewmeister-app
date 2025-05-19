@@ -33,10 +33,6 @@ class _AbsenceManagerDataProvider {
     readInitialData = true;
   }
 
-  testCall() {
-    print("this is test call");
-  }
-
   Future<PaginatedAbsenceResult> fetchAbsences({
     String? query,
     String? absenceType,
@@ -135,5 +131,79 @@ class _AbsenceManagerDataProvider {
       hasMore: hasMore,
       totalResults: totalResults,
     );
+  }
+
+  Future<List<AbsenteeItem>> exportAbsences({
+    String? query,
+    String? absenceType,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? status,
+  }) async {
+    if (!readInitialData) {
+      await _readInitialData();
+    }
+
+    List<AbsenteeItem> filtered = absenceItems;
+    // Name filter
+    if (query != null && query.trim().isNotEmpty) {
+      filtered =
+          filtered
+              .where(
+                (item) =>
+                    item.memberName.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
+    }
+
+    // Absence type filter
+    if (absenceType != null) {
+      filtered =
+          filtered.where((item) {
+            return item.type == absenceType;
+          }).toList();
+    }
+
+    // Date filters
+    if (startDate != null && endDate != null) {
+      // overlapping dates
+      filtered =
+          filtered
+              .where(
+                (item) =>
+                    item.endDate.isAfter(
+                      startDate.subtract(const Duration(days: 1)),
+                    ) &&
+                    item.startDate.isBefore(
+                      endDate.add(const Duration(days: 1)),
+                    ),
+              )
+              .toList();
+    } else if (startDate != null) {
+      filtered =
+          filtered
+              .where(
+                (item) => item.endDate.isAfter(
+                  startDate.subtract(const Duration(days: 1)),
+                ),
+              )
+              .toList();
+    } else if (endDate != null) {
+      filtered =
+          filtered
+              .where(
+                (item) => item.startDate.isBefore(
+                  endDate.add(const Duration(days: 1)),
+                ),
+              )
+              .toList();
+    }
+
+    // Status filter
+    if (status != null) {
+      filtered = filtered.where((item) => item.status == status).toList();
+    }
+
+    return filtered;
   }
 }

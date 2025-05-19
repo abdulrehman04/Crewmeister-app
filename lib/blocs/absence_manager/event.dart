@@ -9,28 +9,14 @@ class AbsenceManagerEvents extends Equatable {
 }
 
 class FetchAbsencesEvent extends AbsenceManagerEvents {
-  // final String? query;
-  // final String? absenceType;
-  // final DateTime? startDate;
-  // final DateTime? endDate;
-  // final String? status;
   final int pageSize;
-
   final AbsenceFilters filters;
 
-  const FetchAbsencesEvent({
-    required this.filters,
-    // this.query,
-    // this.absenceType,
-    // this.startDate,
-    // this.endDate,
-    // this.status,
-    required this.pageSize,
-  });
+  const FetchAbsencesEvent({required this.filters, required this.pageSize});
 }
 
-class FetchAbsenteeCount extends AbsenceManagerEvents {}
+class ExportAbsencesEvent extends AbsenceManagerEvents {
+  final AbsenceFilters filters;
 
-class AbsenceManagerTestEvent extends AbsenceManagerEvents {
-  const AbsenceManagerTestEvent();
+  const ExportAbsencesEvent({required this.filters});
 }

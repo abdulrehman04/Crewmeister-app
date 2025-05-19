@@ -15,24 +15,18 @@ import '../absence_manager/../../api/api.dart';
 part './repository.dart';
 part './data_provider.dart';
 part './states/_fetch_absentees_state.dart';
+part './states/_export_absences_state.dart';
 
 class AbsenceManagerBloc
     extends Bloc<AbsenceManagerEvents, AbsenceManagerState> {
   AbsenceManagerBloc() : super(const AbsenceManagerDefault()) {
-    on<AbsenceManagerTestEvent>(_onTestCall);
     on<FetchAbsencesEvent>(_onFetchAbsences);
+    on<ExportAbsencesEvent>(_onExportAbsences);
   }
 
   final _repo = _AbsenceManagerRepo();
   int _currentPage = 1;
   AbsenceFilters _currentFilters = AbsenceFilters();
-
-  FutureOr<void> _onTestCall(
-    AbsenceManagerTestEvent event,
-    Emitter<AbsenceManagerState> emit,
-  ) {
-    _repo.testCall();
-  }
 
   Future<void> _onFetchAbsences(
     FetchAbsencesEvent event,
@@ -75,6 +69,35 @@ class AbsenceManagerBloc
       emit(
         state.copyWith(
           fetchAbsenteesState: FetchAbsencesFailureState(message: e.toString()),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onExportAbsences(
+    ExportAbsencesEvent event,
+    Emitter<AbsenceManagerState> emit,
+  ) async {
+    emit(state.copyWith(exportAbsencesState: ExportAbsencesLoadingState()));
+    try {
+      final result = await _repo.exportAbsences(
+        query: event.filters.query,
+        startDate: event.filters.startDate,
+        endDate: event.filters.endDate,
+        status: event.filters.status,
+        absenceType: event.filters.absenceType,
+      );
+      emit(
+        state.copyWith(
+          exportAbsencesState: ExportAbsencesSuccessState(absences: result),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          exportAbsencesState: ExportAbsencesFailureState(
+            message: e.toString(),
+          ),
         ),
       );
     }

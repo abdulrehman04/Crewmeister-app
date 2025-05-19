@@ -5,19 +5,31 @@ import 'package:crewmeister_app/blocs/absence_manager/bloc.dart';
 
 class AbsenceManagerState extends Equatable {
   final FetchAbsencesState fetchAbsenteesState;
+  final ExportAbsencesState exportAbsencesState;
+
   @override
-  List<Object?> get props => [fetchAbsenteesState];
+  List<Object?> get props => [fetchAbsenteesState, exportAbsencesState];
 
-  const AbsenceManagerState({required this.fetchAbsenteesState});
+  const AbsenceManagerState({
+    required this.fetchAbsenteesState,
+    required this.exportAbsencesState,
+  });
 
-  AbsenceManagerState copyWith({FetchAbsencesState? fetchAbsenteesState}) {
+  AbsenceManagerState copyWith({
+    FetchAbsencesState? fetchAbsenteesState,
+    ExportAbsencesState? exportAbsencesState,
+  }) {
     return AbsenceManagerState(
       fetchAbsenteesState: fetchAbsenteesState ?? this.fetchAbsenteesState,
+      exportAbsencesState: exportAbsencesState ?? this.exportAbsencesState,
     );
   }
 }
 
 final class AbsenceManagerDefault extends AbsenceManagerState {
   const AbsenceManagerDefault()
-    : super(fetchAbsenteesState: const FetchAbsencesDefaultState());
+    : super(
+        fetchAbsenteesState: const FetchAbsencesDefaultState(),
+        exportAbsencesState: const ExportAbsencesDefaultState(),
+      );
 }
