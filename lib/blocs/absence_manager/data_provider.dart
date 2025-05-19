@@ -19,6 +19,10 @@ class _AbsenceManagerDataProvider {
     List absencesData = await api.absences();
     List membersData = await api.members();
 
+    ApiService _api = ApiService.instance;
+    print((await _api.get('absences')).body);
+    print((await _api.get('members')).body);
+
     absences = absencesData.map((item) => Absence.fromJson(item)).toList();
     members = membersData.map((item) => Member.fromJson(item)).toList();
 

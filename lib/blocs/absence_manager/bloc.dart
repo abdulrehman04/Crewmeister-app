@@ -8,6 +8,7 @@ import 'package:crewmeister_app/blocs/absence_manager/models/paginated_absence_r
 import 'package:crewmeister_app/blocs/absence_manager/repo_interface.dart';
 import 'package:crewmeister_app/blocs/absence_manager/state.dart';
 import 'package:crewmeister_app/models/absence_filters.dart';
+import 'package:crewmeister_app/services/api_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
