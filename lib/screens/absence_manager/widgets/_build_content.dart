@@ -10,6 +10,13 @@ class _BuildContent extends StatelessWidget {
     final bloc = Provider.of<AbsenceManagerBloc>(context);
 
     return BlocConsumer<AbsenceManagerBloc, AbsenceManagerState>(
+      listenWhen: (previous, current) {
+        if (previous.exportAbsencesState is ExportAbsencesSuccessState &&
+            current.exportAbsencesState is ExportAbsencesSuccessState) {
+          return false;
+        }
+        return true;
+      },
       listener: (context, state) {
         if (state.exportAbsencesState is ExportAbsencesSuccessState) {
           screenState.exportIcal(state.exportAbsencesState.absences);
@@ -57,35 +64,10 @@ class _BuildContent extends StatelessWidget {
               ),
               15.verticalSpace,
               Expanded(
-                //   child: _BuildList(
-                //     absences: absences,
-                //     hasMore: hasMore,
-                //     scrollController: scrollController,
-                //     key: const PageStorageKey('BuildList'),
-                //   ),
-                child: ListView.builder(
-                  key: PageStorageKey('AbsenteeList'),
-                  controller: scrollController,
-                  itemCount: absences.length + (hasMore ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (index == absences.length && hasMore) {
-                      return const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    }
-                    AbsenteeItem item = absences[index];
-                    return AbsenteeCard(
-                      name: item.memberName,
-                      status: item.status,
-                      startDate: DateFormat.yMMMd().format(item.startDate),
-                      endDate: DateFormat.yMMMd().format(item.endDate),
-                      leaveType: item.type,
-                      memberNote: item.memberNote,
-                      admitterNote: item.admitterNote,
-                      userImg: item.memberImage,
-                    );
-                  },
+                child: _BuildList(
+                  absences: absences,
+                  hasMore: hasMore,
+                  scrollController: scrollController,
                 ),
               ),
             ],

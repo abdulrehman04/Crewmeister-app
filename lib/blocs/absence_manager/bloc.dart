@@ -11,6 +11,7 @@ import 'package:crewmeister_app/blocs/absence_manager/state.dart';
 import 'package:crewmeister_app/models/absence_filters.dart';
 import 'package:crewmeister_app/services/api_service.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../absence_manager/../../api/api.dart';
