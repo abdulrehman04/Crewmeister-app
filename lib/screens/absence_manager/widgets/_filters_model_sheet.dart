@@ -72,7 +72,7 @@ class FiltersModalSheet extends StatelessWidget {
             },
             textStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
-              fontSize: 17.sp,
+              // fontSize: 17.sp,
             ),
           ),
           10.verticalSpace,

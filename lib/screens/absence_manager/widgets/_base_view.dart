@@ -51,17 +51,25 @@ class _BaseViewState extends State<_BaseView> {
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context);
 
-    return Form(
-      key: screenState.formKey,
-      child: Column(
-        children: [
-          _SearchView(),
-          10.verticalSpace,
-          _FiltersRow(),
-          15.verticalSpace,
-          AppHeading(heading: "Absentees"),
-          Expanded(child: _BuildContent(scrollController: _scrollController)),
-        ],
+    return Align(
+      alignment: Alignment.topCenter,
+      child: SizedBox(
+        width: widget.width,
+        child: Form(
+          key: screenState.formKey,
+          child: Column(
+            children: [
+              _SearchView(),
+              10.verticalSpace,
+              _FiltersRow(),
+              15.verticalSpace,
+              AppHeading(heading: "Absentees"),
+              Expanded(
+                child: _BuildContent(scrollController: _scrollController),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
