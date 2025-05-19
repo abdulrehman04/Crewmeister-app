@@ -11,18 +11,25 @@ class ApiService {
 
   getBaseUrl() {
     if (Platform.isAndroid) {
-      return 'http://10.0.2.2:8080';
+      return '10.0.2.2:8080';
     }
-    return 'http://localhost:8080';
+    return 'localhost:8080';
   }
 
-  Future<http.Response> get(String endpoint) async {
-    final url = Uri.parse('$baseUrl/$endpoint');
-    final response = await http.get(url);
-    print(response.statusCode);
-    if (response.statusCode != 200) {
+  Future<String> get(
+    String endpoint, {
+    Map<String, dynamic> queryParams = const {},
+  }) async {
+    try {
+      final url = Uri.http(baseUrl, endpoint, queryParams);
+      final response = await http.get(url);
+      if (response.statusCode != 200) {
+        throw Exception('Failed to load data');
+      }
+      return response.body;
+    } catch (e) {
+      print(e.toString());
       throw Exception('Failed to load data');
     }
-    return response;
   }
 }

@@ -1,89 +1,47 @@
 part of '../absence_manager.dart';
 
-class _BuildList extends StatelessWidget {
-  const _BuildList({required this.scrollController});
+class _BuildList extends StatefulWidget {
+  const _BuildList({
+    required this.absences,
+    required this.hasMore,
+    required this.scrollController,
+    super.key,
+  });
+
+  final List<AbsenteeItem> absences;
+  final bool hasMore;
   final ScrollController scrollController;
 
   @override
+  State<_BuildList> createState() => __BuildListState();
+}
+
+class __BuildListState extends State<_BuildList> {
+  @override
   Widget build(BuildContext context) {
-    _ScreenState screenState = _ScreenState.s(context);
-    final bloc = Provider.of<AbsenceManagerBloc>(context);
-
-    return BlocConsumer<AbsenceManagerBloc, AbsenceManagerState>(
-      listener: (context, state) {
-        if (state.exportAbsencesState is ExportAbsencesSuccessState) {
-          screenState.exportIcal(state.exportAbsencesState.absences);
-        }
-      },
-      builder: (context, state) {
-        if (state.fetchAbsenteesState is FetchAbsencesLoadingState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state.fetchAbsenteesState is FetchAbsencesFailureState) {
-          return Center(
-            child: Text(state.fetchAbsenteesState.message ?? "Error"),
+    return ListView.builder(
+      key: const PageStorageKey('AbsenteeList'),
+      controller: widget.scrollController,
+      itemCount: widget.absences.length + (widget.hasMore ? 1 : 0),
+      itemBuilder: (context, index) {
+        if (index == widget.absences.length && widget.hasMore) {
+          return const Padding(
+            padding: EdgeInsets.all(16),
+            child: Center(child: CircularProgressIndicator()),
           );
         }
-        if (state.fetchAbsenteesState is FetchAbsencesSuccessState) {
-          final absences = state.fetchAbsenteesState.absences;
-          final hasMore = state.fetchAbsenteesState.hasMore;
-          final total =
-              (state.fetchAbsenteesState as FetchAbsencesSuccessState)
-                  .totalResults;
 
-          if (state.fetchAbsenteesState.absences.isEmpty) {
-            return const Center(child: Text("No Absentees"));
-          }
-          return Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Showing ${absences.length}/$total results'),
-                  InkWell(
-                    onTap: () {
-                      bloc.add(
-                        ExportAbsencesEvent(filters: screenState.filters),
-                      );
-                    },
-                    child: Text(
-                      'Export results',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              15.verticalSpace,
-              Expanded(
-                child: ListView.builder(
-                  controller: scrollController,
-                  itemCount: absences.length + (hasMore ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (index == absences.length && hasMore) {
-                      return const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    }
-                    AbsenteeItem item = absences[index];
-                    return AbsenteeCard(
-                      name: item.memberName,
-                      status: item.status,
-                      startDate: DateFormat.yMMMd().format(item.startDate),
-                      endDate: DateFormat.yMMMd().format(item.endDate),
-                      leaveType: item.type,
-                      memberNote: item.memberNote,
-                      admitterNote: item.admitterNote,
-                      userImg: item.memberImage,
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
-        }
-        return Container();
+        final item = widget.absences[index];
+        return AbsenteeCard(
+          name: item.memberName,
+          status: item.status,
+          startDate: DateFormat.yMMMd().format(item.startDate),
+          endDate: DateFormat.yMMMd().format(item.endDate),
+          leaveType: item.type,
+          memberNote: item.memberNote,
+          admitterNote: item.admitterNote,
+          userImg: item.memberImage,
+        );
       },
     );
   }

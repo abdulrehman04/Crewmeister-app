@@ -14,7 +14,7 @@ class _AbsenceManagerRepo implements IAbsenceManagerRepo {
     required int pageSize,
   }) async {
     try {
-      return await dataProvider.fetchAbsences(
+      Map<String, dynamic> result = await dataProvider.fetchAbsences(
         query: query,
         absenceType: absenceType,
         startDate: startDate,
@@ -23,7 +23,13 @@ class _AbsenceManagerRepo implements IAbsenceManagerRepo {
         page: page,
         pageSize: pageSize,
       );
+
+      print(result);
+
+      var out = PaginatedAbsenceResult.fromMap(result);
+      return out;
     } catch (e) {
+      print(e.toString());
       rethrow;
     }
   }

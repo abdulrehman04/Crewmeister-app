@@ -35,6 +35,7 @@ part './widgets/_base_view.dart';
 part './widgets/_note_widget.dart';
 part './widgets/_absentee_card.dart';
 part './widgets/_filters_row.dart';
+part './widgets/_build_content.dart';
 part './widgets/_build_list.dart';
 part './widgets/_search_view.dart';
 part './widgets/_filters_model_sheet.dart';

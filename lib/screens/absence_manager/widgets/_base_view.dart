@@ -23,9 +23,12 @@ class _BaseViewState extends State<_BaseView> {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
       final screenState = _ScreenState.s(context);
-      context.read<AbsenceManagerBloc>().add(
-        FetchAbsencesEvent(pageSize: 10, filters: screenState.filters),
-      );
+      final bloc = Provider.of<AbsenceManagerBloc>(context, listen: false);
+      if (bloc.state.fetchAbsenteesState.hasMore) {
+        context.read<AbsenceManagerBloc>().add(
+          FetchAbsencesEvent(pageSize: 10, filters: screenState.filters),
+        );
+      }
     }
   }
 
@@ -48,7 +51,7 @@ class _BaseViewState extends State<_BaseView> {
           _FiltersRow(),
           15.verticalSpace,
           AppHeading(heading: "Absentees"),
-          Expanded(child: _BuildList(scrollController: _scrollController)),
+          Expanded(child: _BuildContent(scrollController: _scrollController)),
         ],
       ),
     );
