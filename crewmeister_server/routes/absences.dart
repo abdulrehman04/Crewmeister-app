@@ -15,8 +15,10 @@ Future<void> ensureDataLoaded() async {
   var members = <Member>[];
 
   if (absenceItems.isEmpty) {
-    final aStr = jsonDecode(await File('data/absences.json').readAsString());
-    final mStr = jsonDecode(await File('data/members.json').readAsString());
+    final aStr = jsonDecode(await File('data/absences.json').readAsString())
+        as Map<String, dynamic>;
+    final mStr = jsonDecode(await File('data/members.json').readAsString())
+        as Map<String, dynamic>;
 
     absences = (aStr['payload'] as List)
         .map((item) => Absence.fromJson(item as Map<String, dynamic>))
@@ -142,7 +144,7 @@ Future<Response> onRequest(RequestContext context) async {
   );
 }
 
-String getStatus(Map absence) {
+String getStatus(Map<String, dynamic> absence) {
   if (absence['rejectedAt'] != null) return 'Rejected';
   if (absence['confirmedAt'] != null) return 'Confirmed';
   return 'Requested';

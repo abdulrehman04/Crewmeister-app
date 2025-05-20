@@ -5,7 +5,6 @@ class _BuildList extends StatefulWidget {
     required this.absences,
     required this.hasMore,
     required this.scrollController,
-    super.key,
   });
 
   final List<AbsenteeItem> absences;

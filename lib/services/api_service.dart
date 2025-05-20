@@ -29,7 +29,6 @@ class ApiService {
       }
       return response.body;
     } catch (e) {
-      print(e.toString());
       throw Exception('Failed to load data');
     }
   }

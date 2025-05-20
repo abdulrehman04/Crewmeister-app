@@ -24,19 +24,6 @@ enum AbsenceType {
 }
 
 class Absence {
-  final int id;
-  final int? admitterId;
-  final String? admitterNote;
-  final DateTime? confirmedAt;
-  final DateTime createdAt;
-  final int crewId;
-  final DateTime startDate;
-  final DateTime endDate;
-  final AbsenceType type; // "sickness" or "vacation"
-  final String? memberNote;
-  final DateTime? rejectedAt;
-  final int userId;
-
   Absence({
     required this.id,
     required this.admitterId,
@@ -74,4 +61,16 @@ class Absence {
       userId: json['userId'] as int,
     );
   }
+  final int id;
+  final int? admitterId;
+  final String? admitterNote;
+  final DateTime? confirmedAt;
+  final DateTime createdAt;
+  final int crewId;
+  final DateTime startDate;
+  final DateTime endDate;
+  final AbsenceType type; // "sickness" or "vacation"
+  final String? memberNote;
+  final DateTime? rejectedAt;
+  final int userId;
 }
