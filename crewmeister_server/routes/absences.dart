@@ -119,7 +119,7 @@ Future<Response> onRequest(RequestContext context) async {
   if (startIndex >= filtered.length) {
     return Response.json(
       body: {
-        'payload': [],
+        'payload': <Map<String, dynamic>>[],
         'totalResults': totalResults,
         'hasMore': false,
       },

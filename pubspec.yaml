@@ -49,6 +49,7 @@ dependencies:
 
   # Responsive
   flutter_screenutil: ^5.9.3
+  flutter_staggered_grid_view: ^0.7.0
 
   # Form
   form_builder_validators: ^11.0.0

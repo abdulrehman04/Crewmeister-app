@@ -3,6 +3,8 @@ part of '../absence_manager.dart';
 class AbsenteeCard extends StatelessWidget {
   final String name, leaveType, status, startDate, endDate;
   final String? admitterNote, memberNote, userImg;
+
+  final bool shouldUseFixedSize;
   const AbsenteeCard({
     super.key,
     this.admitterNote,
@@ -13,6 +15,7 @@ class AbsenteeCard extends StatelessWidget {
     required this.startDate,
     required this.status,
     this.userImg,
+    this.shouldUseFixedSize = false,
   });
 
   @override
@@ -20,6 +23,7 @@ class AbsenteeCard extends StatelessWidget {
     _ScreenState screenState = _ScreenState.s(context);
 
     return Container(
+      height: shouldUseFixedSize ? 290 : null,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: AppTheme.kWhite,
@@ -45,7 +49,7 @@ class AbsenteeCard extends StatelessWidget {
                     radius: 30,
                     backgroundImage: NetworkImage(userImg ?? ''),
                   ),
-                  13.horizontalSpace,
+                  kIsWeb ? SizedBox(width: 13) : 13.horizontalSpace,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -61,8 +65,7 @@ class AbsenteeCard extends StatelessWidget {
                 ],
               ),
               Container(
-                width: 90.w,
-                height: 35.h,
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: screenState.getStatusColor(status),
@@ -82,13 +85,15 @@ class AbsenteeCard extends StatelessWidget {
               ),
             ],
           ),
-          if (memberNote != '') 15.verticalSpace,
+          if (memberNote != '')
+            kIsWeb ? SizedBox(height: 15) : 15.verticalSpace,
           if (memberNote != '')
             NoteWidget(title: 'Member note', note: memberNote ?? ''),
-          if (admitterNote != '') 10.verticalSpace,
+          if (admitterNote != '')
+            kIsWeb ? SizedBox(height: 10) : 10.verticalSpace,
           if (admitterNote != '')
             NoteWidget(title: 'Admitter note', note: admitterNote ?? ''),
-          15.verticalSpace,
+          kIsWeb ? SizedBox(height: 15) : 15.verticalSpace,
           // DATE PILL
           Align(
             alignment: Alignment.centerRight,

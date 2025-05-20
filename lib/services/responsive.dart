@@ -21,6 +21,8 @@ class Responsive extends StatelessWidget {
 
   static bool isDesktop() => AppMedia.width >= AppBreakpoints.lg;
 
+  // static bool isWideWeb() => kIsWeb && AppMedia.width >= AppBreakpoints.lg;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

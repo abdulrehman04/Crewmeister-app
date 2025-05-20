@@ -25,7 +25,7 @@ class NoteWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              width: 6.w,
+              width: kIsWeb ? 6 : 6.w,
               decoration: const BoxDecoration(
                 color: AppTheme.kPrimary,
                 borderRadius: BorderRadius.only(
@@ -34,10 +34,13 @@ class NoteWidget extends StatelessWidget {
                 ),
               ),
             ),
-            5.horizontalSpace,
+            kIsWeb ? SizedBox(width: 5) : 5.horizontalSpace,
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
+                padding: EdgeInsets.symmetric(
+                  vertical: kIsWeb ? 12 : 12.h,
+                  horizontal: kIsWeb ? 10 : 10.w,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

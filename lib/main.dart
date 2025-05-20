@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppMedia.init(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<AbsenceManagerBloc>(
