@@ -28,7 +28,7 @@ class _AbsenceManagerDataProvider {
         absenceType: absenceType,
         startDate: startDate,
         endDate: endDate,
-        status: query,
+        status: status,
         page: page,
         pageSize: pageSize,
       );
