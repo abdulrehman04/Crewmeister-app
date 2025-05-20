@@ -15,6 +15,7 @@ class _SearchView extends StatelessWidget {
         FormBuilderValidators.required(),
         FormBuilderValidators.alphabetical(),
       ]),
+      inputformatters: [CustomInputFormatters.nameOnlyFormatter],
       sufffixIcon:
           screenState.searchController.text != '' ? Icons.clear : Icons.search,
       onTapIcon: () {
