@@ -1,6 +1,6 @@
 part of './absence_manager_bloc_test.dart';
 
-class FakeRepo implements IAbsenceManagerRepo {
+class SuccessFakeRepo implements IAbsenceManagerRepo {
   @override
   Future<PaginatedAbsenceResult> fetchAbsences({
     required int page,
@@ -12,8 +12,9 @@ class FakeRepo implements IAbsenceManagerRepo {
     String? absenceType,
   }) async {
     return PaginatedAbsenceResult(
-      absences: [
-        AbsenteeItem(
+      absences: List.generate(
+        pageSize,
+        (i) => AbsenteeItem(
           memberImage: 'http://example.com/image.jpg',
           memberName: 'Mike',
           type: 'Vacation',
@@ -23,9 +24,9 @@ class FakeRepo implements IAbsenceManagerRepo {
           admitterNote: 'Approved',
           status: 'Confirmed',
         ),
-      ],
-      hasMore: false,
-      totalResults: 1,
+      ),
+      hasMore: true,
+      totalResults: 42,
     );
   }
 
