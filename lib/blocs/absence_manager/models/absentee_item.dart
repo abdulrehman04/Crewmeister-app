@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:crewmeister_app/blocs/absence_manager/models/absence_model.dart';

@@ -1,4 +1,4 @@
-import 'package:crewmeister_app/blocs/absence_manager/bloc.dart';
+import 'package:crewmeister_app/blocs/absence_manager/absence_manager_bloc.dart';
 import 'package:crewmeister_app/configs/configs.dart';
 import 'package:crewmeister_app/router/app_router.dart';
 import 'package:flutter/material.dart';

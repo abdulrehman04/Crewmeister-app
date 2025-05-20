@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:crewmeister_app/blocs/absence_manager/bloc.dart';
+import 'package:crewmeister_app/blocs/absence_manager/absence_manager_bloc.dart';
 import 'package:crewmeister_app/blocs/absence_manager/enums/absence_type.dart';
 import 'package:crewmeister_app/blocs/absence_manager/event.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/absentee_item.dart';

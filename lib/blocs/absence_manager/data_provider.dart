@@ -1,4 +1,4 @@
-part of './bloc.dart';
+part of 'absence_manager_bloc.dart';
 
 class _AbsenceManagerDataProvider {
   // A SINGLETON TO SAVE RE-READS OF DATA

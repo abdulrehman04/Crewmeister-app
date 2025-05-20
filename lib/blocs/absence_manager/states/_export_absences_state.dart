@@ -1,4 +1,4 @@
-part of '../bloc.dart';
+part of '../absence_manager_bloc.dart';
 
 class ExportAbsencesState extends Equatable {
   static bool match(AbsenceManagerState a, AbsenceManagerState b) =>

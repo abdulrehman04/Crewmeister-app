@@ -1,7 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-import 'package:crewmeister_app/blocs/absence_manager/bloc.dart';
+import 'package:crewmeister_app/blocs/absence_manager/absence_manager_bloc.dart';
 
 class AbsenceManagerState extends Equatable {
   final FetchAbsencesState fetchAbsenteesState;
