@@ -16,7 +16,13 @@ class _BaseViewState extends State<_BaseView> {
     super.initState();
     _scrollController = ScrollController()..addListener(_onScroll);
     final bloc = Provider.of<AbsenceManagerBloc>(context, listen: false);
-    bloc.add(FetchAbsencesEvent(pageSize: 10, filters: AbsenceFilters()));
+
+    // Allowing for local data repo to read data
+    Timer(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        bloc.add(FetchAbsencesEvent(pageSize: 10, filters: AbsenceFilters()));
+      }
+    });
   }
 
   void _onScroll() {

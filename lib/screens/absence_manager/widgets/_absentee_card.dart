@@ -23,7 +23,7 @@ class AbsenteeCard extends StatelessWidget {
     _ScreenState screenState = _ScreenState.s(context);
 
     return Container(
-      height: shouldUseFixedSize ? 290 : null,
+      height: shouldUseFixedSize ? 310 : null,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: AppTheme.kWhite,

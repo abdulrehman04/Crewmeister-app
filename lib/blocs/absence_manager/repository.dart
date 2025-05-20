@@ -14,7 +14,7 @@ class _AbsenceManagerRepo implements IAbsenceManagerRepo {
     required int pageSize,
   }) async {
     try {
-      Map<String, dynamic> result = await dataProvider.fetchAbsences(
+      var result = await dataProvider.fetchAbsences(
         query: query,
         absenceType: absenceType,
         startDate: startDate,
@@ -22,7 +22,13 @@ class _AbsenceManagerRepo implements IAbsenceManagerRepo {
         status: status,
         page: page,
         pageSize: pageSize,
+        // TODO: REMOVE FETCHFROMLOCAL IN PROD
+        fetchFromLocal: kIsWeb,
       );
+
+      if (result is PaginatedAbsenceResult) {
+        return result;
+      }
 
       var out = PaginatedAbsenceResult.fromMap(result);
       return out;
@@ -43,13 +49,19 @@ class _AbsenceManagerRepo implements IAbsenceManagerRepo {
     String? status,
   }) async {
     try {
-      Map<String, dynamic> result = await dataProvider.exportAbsences(
+      var result = await dataProvider.exportAbsences(
         query: query,
         absenceType: absenceType,
         startDate: startDate,
         endDate: endDate,
         status: status,
+        // TODO: REMOVE FETCHFROMLOCAL IN PROD
+        fetchFromLocal: kIsWeb,
       );
+
+      if (result is List<AbsenteeItem>) {
+        return result;
+      }
       return List<AbsenteeItem>.from(
         (result['payload']).map<AbsenteeItem>((x) => AbsenteeItem.fromMap(x)),
       );
