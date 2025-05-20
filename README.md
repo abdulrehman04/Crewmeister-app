@@ -185,7 +185,7 @@ test/
     ├── _success_fake_repo.dart
     └── absence_manager_bloc_test.dart
 
-server/
+crewmeister_server/
 └── (Dart Frog API server for mock data)
 ```
 </details>
