@@ -1,4 +1,4 @@
-part of './absence_manager_bloc_test.dart';
+part of '../absence_manager_bloc_test.dart';
 
 class SuccessFakeRepo implements IAbsenceManagerRepo {
   @override
@@ -38,17 +38,18 @@ class SuccessFakeRepo implements IAbsenceManagerRepo {
     String? status,
     String? absenceType,
   }) async {
-    return [
-      AbsenteeItem(
+    return List.generate(
+      42,
+      (i) => AbsenteeItem(
         memberImage: 'http://example.com/image.jpg',
         memberName: 'Max',
-        type: 'Sick Leave',
-        startDate: DateTime(2025, 6, 2),
-        endDate: DateTime(2025, 6, 3),
-        memberNote: 'Fever',
-        admitterNote: 'Get well soon',
-        status: 'Requested',
+        type: 'Vacation',
+        startDate: DateTime(2025, 5, 1),
+        endDate: DateTime(2025, 5, 3),
+        memberNote: 'Going to Spain',
+        admitterNote: 'Approved',
+        status: 'Confirmed',
       ),
-    ];
+    );
   }
 }

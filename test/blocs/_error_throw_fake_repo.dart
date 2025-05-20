@@ -1,4 +1,4 @@
-part of 'absence_manager_bloc_test.dart';
+part of '../absence_manager_bloc_test.dart';
 
 class ThrowingFakeRepo implements IAbsenceManagerRepo {
   @override

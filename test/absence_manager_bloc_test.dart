@@ -8,11 +8,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:crewmeister_app/blocs/absence_manager/absence_manager_bloc.dart';
 import 'package:crewmeister_app/models/absence_filters.dart';
 
-part '_error_throw_fake_repo.dart';
-part '_success_fake_repo.dart';
+part 'blocs/_error_throw_fake_repo.dart';
+part 'blocs/_success_fake_repo.dart';
 
 void main() {
-  group('AbsenceManagerBloc', () {
+  group('AbsenceManagerBloc Success', () {
     late AbsenceManagerBloc bloc;
 
     setUp(() {
@@ -69,9 +69,35 @@ void main() {
       final exported =
           (emitted[1].exportAbsencesState as ExportAbsencesSuccessState)
               .absences;
-      expect(exported.length, 1);
+      expect(exported.length, 42);
       expect(exported.first.memberName, 'Max');
     });
+
+    test(
+      'exportAbsences fetches all results for a filter, not only visible ones from fetchAbsentee',
+      () async {
+        final bloc = AbsenceManagerBloc(repo: SuccessFakeRepo());
+        final emitted = <AbsenceManagerState>[];
+        final sub = bloc.stream.listen(emitted.add);
+
+        final filters = AbsenceFilters(query: 'max');
+
+        bloc.add(ExportAbsencesEvent(filters: filters));
+        await Future.delayed(Duration(milliseconds: 300));
+        await sub.cancel();
+
+        final state = emitted.last.exportAbsencesState;
+        expect(state, isA<ExportAbsencesSuccessState>());
+
+        final exported = (state as ExportAbsencesSuccessState).absences;
+
+        expect(
+          exported.length,
+          greaterThan(10),
+        ); // 'Export should fetch all matches, not just 1 page'
+        expect(exported.first.memberName.toLowerCase(), contains('max'));
+      },
+    );
 
     test('pagination appends absences on same filter', () async {
       final bloc = AbsenceManagerBloc(repo: SuccessFakeRepo());
