@@ -49,7 +49,7 @@ This is my submission for the **Flutter Absence Manager** challenge. The app mee
 ## 📺 Demo
 
 🔗 **Live Web App**: [https://crewmeister-app.firebaseapp.com/](https://crewmeister-app.firebaseapp.com/)  
-📹 **Video Walkthrough**: [NA](NA)
+📹 **Video Walkthrough**: [https://www.loom.com/share/4606be06237e40949a0d37103a21a7da?sid=cff25069-9fc0-4d55-b752-4ca964a9704b](https://www.loom.com/share/4606be06237e40949a0d37103a21a7da?sid=cff25069-9fc0-4d55-b752-4ca964a9704b)
 
 ---
 
