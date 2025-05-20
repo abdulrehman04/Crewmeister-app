@@ -32,10 +32,10 @@ class __BuildListState extends State<_BuildList> {
     return MasonryGridView.builder(
       key: const PageStorageKey('AbsenteeGrid'),
       controller: widget.scrollController,
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(Responsive.isMobile() ? 0 : 16),
       itemCount: itemCount,
-      mainAxisSpacing: 16,
-      crossAxisSpacing: 16,
+      mainAxisSpacing: Responsive.isMobile() ? 0 : 16,
+      crossAxisSpacing: Responsive.isMobile() ? 0 : 16,
       gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: gridCount > 3 ? 3 : gridCount,
       ),
