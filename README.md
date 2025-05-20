@@ -104,7 +104,9 @@ flutter test
 flutter analyze
 ```
 
-<details> <summary> Project Structure (click to expand)</summary>
+## 📁 Project Structure (click to expand)
+
+<details> <summary>(click to view full structure)</summary>
 
 ```bash
 lib/
