@@ -31,6 +31,7 @@ import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
 import 'package:web/web.dart' as web;
 
+part './static/_keys.dart';
 part './_state.dart';
 part './views/desktop.dart';
 part './views/mobile.dart';
@@ -43,6 +44,7 @@ part './widgets/_build_content.dart';
 part './widgets/_build_list.dart';
 part './widgets/_search_view.dart';
 part './widgets/_filters_model_sheet.dart';
+part './widgets/_filters_drawer.dart';
 
 class AbsenceManagerScreen extends StatelessWidget {
   const AbsenceManagerScreen({super.key});
@@ -53,6 +55,8 @@ class AbsenceManagerScreen extends StatelessWidget {
       create: (_) => _ScreenState(),
       child: SafeArea(
         child: Scaffold(
+          key: _scaffoldKey,
+          drawer: _FiltersDrawer(),
           body: Responsive(
             mobile: const _Mobile(),
             tablet: const _Tablet(),

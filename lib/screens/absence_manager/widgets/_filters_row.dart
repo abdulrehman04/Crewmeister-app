@@ -45,6 +45,10 @@ class _FiltersRow extends StatelessWidget {
         5.horizontalSpace,
         InkWell(
           onTap: () {
+            if (!Responsive.isMobile()) {
+              _scaffoldKey.currentState?.openDrawer();
+              return;
+            }
             showModalBottomSheet(
               context: context,
               builder: (context) {
