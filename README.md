@@ -79,7 +79,7 @@ The app runs in local mode by default for Web using the assets/json/absences.jso
 fetchFromLocal: kIsWeb // true or false
 ```
 
-**You need to run dart server for Mobile**
+**P.S: You need to run dart server for Mobile**
 
 ### Run Dart from server
 
