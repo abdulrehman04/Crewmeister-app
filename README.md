@@ -105,9 +105,8 @@ flutter analyze
 ```
 
 <details> <summary> Project Structure (click to expand)</summary>
-plaintext
-Copy
-Edit
+
+```bash
 lib/
 ├── api/
 │   └── api.dart
@@ -186,4 +185,5 @@ test/
 
 server/
 └── (Dart Frog API server for mock data)
+```
 </details>
