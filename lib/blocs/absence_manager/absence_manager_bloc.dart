@@ -6,7 +6,7 @@ import 'package:crewmeister_app/blocs/absence_manager/models/absence_model.dart'
 import 'package:crewmeister_app/blocs/absence_manager/models/absentee_item.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/member_model.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/paginated_absence_result.dart';
-import 'package:crewmeister_app/blocs/absence_manager/repo_interface.dart';
+import 'package:crewmeister_app/blocs/absence_manager/absence_manager_repo_interface.dart';
 import 'package:crewmeister_app/blocs/absence_manager/state.dart';
 import 'package:crewmeister_app/models/absence_filters.dart';
 import 'package:crewmeister_app/services/api_service.dart';
@@ -23,7 +23,7 @@ part './states/_export_absences_state.dart';
 
 class AbsenceManagerBloc
     extends Bloc<AbsenceManagerEvents, AbsenceManagerState> {
-  AbsenceManagerBloc({required IAbsenceManagerRepo repo})
+  AbsenceManagerBloc({required IAbsenceManagerRepoInterface repo})
     : _repo = repo,
       super(const AbsenceManagerDefault()) {
     on<FetchAbsencesEvent>(_onFetchAbsences);
@@ -34,7 +34,7 @@ class AbsenceManagerBloc
     return AbsenceManagerBloc(repo: _AbsenceManagerRepo());
   }
 
-  final IAbsenceManagerRepo _repo;
+  final IAbsenceManagerRepoInterface _repo;
   int _currentPage = 1;
   AbsenceFilters _currentFilters = AbsenceFilters();
 

@@ -1,6 +1,6 @@
 part of '../absence_manager_bloc_test.dart';
 
-class SuccessFakeRepo implements IAbsenceManagerRepo {
+class SuccessFakeRepo implements IAbsenceManagerRepoInterface {
   @override
   Future<PaginatedAbsenceResult> fetchAbsences({
     required int page,

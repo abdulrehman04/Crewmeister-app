@@ -1,7 +1,7 @@
 import 'package:crewmeister_app/blocs/absence_manager/event.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/absentee_item.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/paginated_absence_result.dart';
-import 'package:crewmeister_app/blocs/absence_manager/repo_interface.dart';
+import 'package:crewmeister_app/blocs/absence_manager/absence_manager_repo_interface.dart';
 import 'package:crewmeister_app/blocs/absence_manager/state.dart';
 
 import 'package:flutter_test/flutter_test.dart';

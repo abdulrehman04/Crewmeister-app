@@ -1,7 +1,7 @@
 import 'package:crewmeister_app/blocs/absence_manager/models/absentee_item.dart';
 import 'package:crewmeister_app/blocs/absence_manager/models/paginated_absence_result.dart';
 
-abstract class IAbsenceManagerRepo {
+abstract class IAbsenceManagerRepoInterface {
   Future<PaginatedAbsenceResult> fetchAbsences({
     required int page,
     required int pageSize,

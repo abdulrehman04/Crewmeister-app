@@ -1,6 +1,6 @@
 part of 'absence_manager_bloc.dart';
 
-class _AbsenceManagerRepo implements IAbsenceManagerRepo {
+class _AbsenceManagerRepo implements IAbsenceManagerRepoInterface {
   final dataProvider = _AbsenceManagerDataProvider.instance;
 
   @override
