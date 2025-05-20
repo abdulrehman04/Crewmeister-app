@@ -73,7 +73,7 @@ cd crewmeister-absence-manager
 flutter pub get
 flutter run
 ```
-The app runs in local mode by default for Web using the assets/json/absences.json and members.json files — no backend required. Optionally, you can change this behaviour in **blocs/absence_manager/repository** by changing:
+The app runs in local mode by default for Web using the assets/json/absences.json and members.json files — no backend required. Optionally, this behavior can be toggled in `blocs/absence_manager/repository.dart` by setting:
 
 ```bash
 fetchFromLocal: kIsWeb // true or false
@@ -103,6 +103,8 @@ To execute all unit tests and analyse any linting issues:
 flutter test
 flutter analyze
 ```
+
+---
 
 ## 📁 Project Structure (click to expand)
 
@@ -189,3 +191,88 @@ crewmeister_server/
 └── (Dart Frog API server for mock data)
 ```
 </details>
+
+## Why this architecture - Design Decisions (click to expand)
+<details>
+  <summary>Click to explore</summary>
+
+### State Management Approach
+
+The app uses a combination of **BLoC Provider** and **Provider**, each with a distinct responsibility:
+
+- **BLoC Provider** is used for application-wide business logic such as:
+  - Fetching and paginating absence data
+  - Handling filtering and export
+  - Managing loading, error, and success states
+
+- **Provider** is used for local, screen-specific state such as:
+  - UI toggles (e.g. opening drawers or modals)
+  - Temporary view flags (e.g. loading indicators)
+  - View-only state that doesn't require full event/state cycles
+
+This hybrid approach keeps the architecture clean and scalable:
+- Complex workflows stay centralized in BLoC
+- Lightweight UI behaviors remain simple and reactive with Provider
+- Testing and maintenance are easier due to clear responsibility boundaries
+
+### Project Structure
+
+The project focuses on a modular structure with clear separation of concerns:
+
+- `blocs/` – Business logic, state management using BLoC
+- `models/` – Data models and types
+- `screens/` – Page-level views, grouped by feature
+- `widgets/` – Reusable UI components
+- `services/` – API and utility services
+- `configs/` – Layout constants, theming, and breakpoints
+- `router/` – Centralized routing using GoRouter
+
+### Scoped Files
+
+Files meant for internal use within a module are prefixed with `_` to limit visibility and keep implementation details encapsulated. This helps enforce module boundaries and improves maintainability.
+
+### Data Layer
+
+The app supports both local and remote data sources:
+
+- Local mode uses static JSON files bundled in assets
+- Remote mode is powered by a lightweight Dart Frog API server
+
+Data source switching is abstracted behind a `repository.dart`, allowing the UI and BLoC layers to remain agnostic.
+
+### Responsive Design
+
+- The layout adapts to mobile, tablet, and desktop screen sizes. Responsive behavior is configured via centralized files in `configs/ui`, using consistent breakpoints and scaling logic.
+- Each screen size can present a different UI implementation (e.g. `views/mobile.dart`, `views/desktop.dart`), while still accessing the same BLoC and Provider instances. This keeps the state consistent across platforms while allowing screen-specific optimizations.
+
+
+### UI Components
+
+Reusable UI elements are grouped logically:
+
+- `widgets/input/` – Form controls like dropdowns and date pickers
+- `widgets/ui/` – Design elements like buttons and headings
+- `screens/.../views/` – Platform-specific layouts
+- `screens/.../widgets/` – View-level components for absence manager
+
+### Testing Strategy
+
+The BLoC layer is fully unit tested using injected repositories.  
+A common abstract interface (`IAbsenceManagerRepo`) is used to:
+
+- Decouple business logic from data access
+- Swap in fake repositories (`SuccessFakeRepo`, `ThrowingFakeRepo`) for isolated testing
+- Simulate key behavior: pagination, filters, export, and error states
+
+This allows for deterministic and focused unit tests without reliance on real data or side effects.
+
+</details>
+
+---
+
+## Thanks!
+Thanks again for the opportunity — this challenge was a blast to work on.
+I’d love the chance to bring this energy to the Crewmeister team and help build great products.
+
+Let me know if you’d like to dive into any part of the implementation.
+— Abdul Rehman
