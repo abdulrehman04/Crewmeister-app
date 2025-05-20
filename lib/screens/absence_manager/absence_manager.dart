@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:crewmeister_app/blocs/absence_manager/bloc.dart';
@@ -28,6 +29,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
+import 'package:web/web.dart' as web;
 
 part './_state.dart';
 part './views/desktop.dart';
